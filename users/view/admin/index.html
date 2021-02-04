@@ -1,0 +1,72 @@
+<article class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Zarządzanie</h3>
+            </div>
+            <div class="panel-body">
+    		<form name="user" action="{?=url(ADMIN.'/users/savee/'.@$cover.id)?}" method="POST" enctype="multipart/form-data">
+    			<fieldset>
+    	            <div class="form-group">
+    	                <label>Login</label>
+    	                <input type="text" name="username" class="form-control" required value="{$cover.username}" />
+    	            </div>
+    	            <div class="form-group">
+    	                <label>Nazwa Wyświetlana</label>
+    	                <input type="text" name="fullname" class="form-control" placeholder="{$lang.general.can_be_empty}" value="{$cover.fullname}" />
+    	            </div>
+					<div class="form-group">
+    	                <label>Avatar</label>
+						<div>
+							<img src="{?=url('uploads/users')?}/{$cover.avatar}" width="96" height="96" class="img-thumbnail" id="photoPreview" style="cursor:pointer;" onclick="$('input[name=photo]').click()" />
+							<input type="file" name="photo" class="form-control hidden" />
+						</div>
+    	            </div>
+					<div class="form-group">
+    	                <label>Opis</label>
+    	                <textarea class="form-control" name="description" placeholder="{$lang.general.can_be_empty}" rows="6">{$cover.description}</textarea>
+    	            </div>
+    	            <div class="form-group">
+    	                <label>E-mail</label>
+    	                <input type="email" name="email" class="form-control" required value="{$cover.email}" />
+    	            </div>
+    	            <div class="form-group">
+    	                <label>{$lang.general.password} {if: isset($cover.id)}<a href="#" id="passwordChange" class="btn btn-default btn-xs">{$lang.general.change}</a>{/if}</label>
+    	                <input type="password" name="password" class="form-control" pattern=".{5,}" title="" {if: isset($cover.id)}value="********" placeholder="" disabled {else}required{/if} />
+    	            </div>
+    	            <div class="form-group">
+						<label>Styl</label></br>
+						<style>.toggleR{background: transparent !important;
+							border: none !important;box-shadow: none;}</style>
+						
+						<div style="border:1px solid rgb(177, 177, 177);height: 30px; width: 30px; background: linear-gradient(90deg, rgba(3,3,3,1) 0%, rgba(255,179,0,1) 100%);display: inline-block;"><input type="radio" name="theme" class="form-control" placeholder="" value="dark"/></div>
+						
+						<div style="border:1px solid rgb(177, 177, 177);height: 30px; width: 30px; background: linear-gradient(90deg, rgb(233, 233, 233) 0%, rgba(255,179,0,1) 100%);display: inline-block;"><input type="radio" name="theme" class="form-control" placeholder="" value="light"/></div>
+    	            </div>
+    	            <div class="form-group">
+    	                <input type="submit" name="save" class="btn btn-primary" value="{$lang.general.save}" />
+    	            </div>
+                </fieldset>
+            </form>
+            </div>
+        </div>
+    </div>
+</article>
+
+<script>
+	// Avatar
+	var reader  = new FileReader();
+	reader.addEventListener("load", function() {
+		$("#photoPreview").attr('src', reader.result);
+	}, false);
+	$("input[name=photo]").change(function() {
+		reader.readAsDataURL(this.files[0]);
+	});
+
+	// Password
+	$("#passwordChange").on("click", function() {
+		$("input[name=password]").val("").attr('disabled', false);
+		$(this).remove();
+		return false;
+	})
+</script>

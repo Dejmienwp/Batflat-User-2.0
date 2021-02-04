@@ -1,0 +1,46 @@
+<article class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+				<h3 class="panel-title">{$lang.general.manage}</h3>
+            </div>
+            <div class="panel-body">
+				<a href="{?= url([ADMIN, 'users', 'add']) ?}" class="btn btn-xs btn-success {if: $myId == 'admin' }un-{/if}disabled">
+					<i class="fa fa-pencil"></i> <span class="hidden-xs">Dodaj</span>
+				</a>
+				<div class="table-responsive no-margin">
+					<table class="table table-striped no-margin">
+						<thead>
+							<tr>
+								<th>{$lang.general.username}</th>
+								<th>{$lang.users.display_name}</th>
+								<th>{$lang.users.email}</th>
+								<th>Avatar</th>
+								<th class="text-right">{$lang.general.actions}</th>
+							</tr>
+						</thead>
+						<tbody>
+							{loop: $users}
+							<tr>
+								<td>{$value.username}</td>
+								<td>{$value.fullname}</td>
+								<td>{$value.email}</td>
+								<td>{$value.role}</td>
+								<td><img src="{?= url(['uploads', 'users', '{$value.avatar}']) ?}" style="border-radius: 15px;height: 40px;border:3px solid rgb(211, 211, 211)"></td>								
+								<td class="text-right">
+									<a href="{$value.editURL}" class="btn btn-xs btn-success {if: $myId == 'admin' }un-{/if}disabled">
+										<i class="fa fa-pencil"></i> <span class="hidden-xs">{$lang.general.edit}</span>
+									</a>
+									<a href="{$value.delURL}" class="btn btn-xs btn-danger {if: $myId == 'admin' }un-{/if}disabled" data-confirm="{$lang.users.delete_confirm}">
+										<i class="fa fa-trash-o"></i> <span class="hidden-xs">{$lang.general.delete}</span>
+									</a>
+								</td>
+							</tr>
+							{/loop}
+						</tbody>
+					</table>
+				</div>
+            </div>
+        </div>
+    </div>
+</article>
